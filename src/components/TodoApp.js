@@ -7,11 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
+import { TodosProvider } from '../context/todos.context';
 
 export default function TodoApp () {
-  console.log('hello');
-  const initialTodos = [];
-  const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(initialTodos);
+  // const initialTodos = [];
+  // const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(initialTodos);
 
   const todaysDate = () => {
     const date = new Date();
@@ -41,8 +41,10 @@ export default function TodoApp () {
       </AppBar>
       <Grid container justify="center" alignItems="center" style={{marginTop: '1.5rem'}}>
         <Grid item xs={11} md={8} lg={4}>
-          <TodoForm addTodo={addTodo}/>
-          <TodoList todos={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} editTodo={editTodo}/>
+          <TodosProvider>
+            <TodoForm />
+            <TodoList />
+          </TodosProvider>
         </Grid>
       </Grid>
     </Paper>

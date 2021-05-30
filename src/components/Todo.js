@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import { DispatchContext } from '../context/todos.context';
 import useToggle from '../hooks/useToggle';
 import EditTodoForm from './EditTodoForm';
@@ -10,7 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-export default function Todo (props) {
+function Todo (props) {
   const [editing, toggleEditing] = useToggle(false);
   const { id, task, completed  } = props;
   const dispatch = useContext(DispatchContext);
@@ -18,6 +18,7 @@ export default function Todo (props) {
   const handleDelete = () => {
     dispatch({type: 'REMOVE', id: id});
   }
+  console.log('todo rerender');
   return (
     <>
       <ListItem style={{height: '64px'}}>
@@ -45,3 +46,6 @@ export default function Todo (props) {
     </>
   )
 }
+export default memo(Todo);
+// memo is HOC takes a func as arg and returns a new version of that func
+// will rerender only if there are new props

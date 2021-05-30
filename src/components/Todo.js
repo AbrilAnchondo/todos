@@ -13,10 +13,10 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 export default function Todo (props) {
   const [editing, toggleEditing] = useToggle(false);
   const { id, task, completed  } = props;
-  const { removeTodo, toggleTodo } = useContext(TodosContext);
+  const { dispatch } = useContext(TodosContext);
 
   const handleDelete = () => {
-    removeTodo(id);
+    dispatch({type: 'REMOVE', id: id});
   }
   return (
     <>
@@ -24,7 +24,7 @@ export default function Todo (props) {
         {editing ? <EditTodoForm id={id} task={task} toggleEditForm={toggleEditing}/> : 
         <>
           <Checkbox
-            onClick={() => toggleTodo(id)}
+            onClick={() => dispatch({type:'TOGGLE', id: id})}
             checked={completed}
             color="primary"
           />

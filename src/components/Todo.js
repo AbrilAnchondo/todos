@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { TodosContext } from '../context/todos.context';
+import { DispatchContext } from '../context/todos.context';
 import useToggle from '../hooks/useToggle';
 import EditTodoForm from './EditTodoForm';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,7 +13,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 export default function Todo (props) {
   const [editing, toggleEditing] = useToggle(false);
   const { id, task, completed  } = props;
-  const { dispatch } = useContext(TodosContext);
+  const dispatch = useContext(DispatchContext);
 
   const handleDelete = () => {
     dispatch({type: 'REMOVE', id: id});
